@@ -3,10 +3,13 @@ package Ch02;
 public class SparseMatrix {
     public static void main(String[] args) {
         // {{2, 0, 3}, {0, 0, 7}}
-        int A[][] = new int[][] { {2, 3, 3}, {0, 0, 2}, {0, 2, 3}, {1, 2, 7} };
+        int A[][] = new int[][] { {2, 3, 3},
+                                  {0, 0, 2},
+                                  {0, 2, 3},
+                                  {1, 2, 7} };
         int AT[][] = new int[4][3];
         SparseMatrix SM = new SparseMatrix();
-        AT = SM.transposSM(A);
+        AT = SM.transposeSM(A);
 
         System.out.printf("A = %n");
         for (int i = 0; i < 4; i++) {
@@ -27,7 +30,7 @@ public class SparseMatrix {
 
     }
 
-    public int[][] transposSM(int[][] A) {
+    public int[][] transposeSM(int[][] A) {
         int m = A[0][0];
         int n = A[0][1];
         int v = A[0][2];
