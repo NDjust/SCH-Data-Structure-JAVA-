@@ -1,8 +1,8 @@
-package Ch04;
+package Practice;
 
-public class DoublyLinked {
+public class CircularDoubly {
     public static void main(String[] args) {
-        DoublyLinkedList DL = new DoublyLinkedList();
+        CircularDoublyLinkedList DL = new CircularDoublyLinkedList();
         System.out.println("(1) 공백 리스트에 노드 3개 삽입하기");
         DL.insertLastNode("월");
         DL.insertLastNode("수");
@@ -10,7 +10,7 @@ public class DoublyLinked {
         DL.printList();
 
         System.out.println("(2) 수 노드 뒤에 금 노드 삽입하기");
-        Node pre = DL.searchNode("수");
+        ListNode pre = DL.searchNode("수");
 
         if (pre == null) {
             System.out.println("검색실패 찾는 데이터가 없습니다. ");
@@ -36,35 +36,38 @@ public class DoublyLinked {
         System.out.println("(6) 첫번째 노드 삭제하기");
         DL.deleteFirstNode();
         DL.printList();
+
+
     }
 }
 
-class Node {
+class ListNode {
     String data;
-    Node next;
-    Node prev;
+    ListNode prev;
+    ListNode next;
 
-    public Node(){
+    public ListNode() {
+        this.data = null;
+        this.prev = null;
+        this.next = null;
+    }
+
+    public ListNode(String data) {
+        this.data = data;
         this.next = null;
         this.prev = null;
     }
 
-    public Node(String data) {
+    public ListNode(String data, ListNode prev) {
         this.data = data;
-        this.next = null;
-        this.prev = null;
-    }
-
-    public Node(String data, Node next) {
-        this.data = data;
-        this.next = next;
-        this.prev = null;
-    }
-
-    public Node(String data, Node next, Node prev) {
-        this.data = data;
-        this.next = next;
         this.prev = prev;
+        this.next = null;
+    }
+
+    public ListNode(String data, ListNode prev, ListNode next) {
+        this.data = data;
+        this.prev = prev;
+        this.next = next;
     }
 
     public String getData() {
@@ -72,105 +75,112 @@ class Node {
     }
 }
 
+class CircularDoublyLinkedList {
+    ListNode head;
 
-class DoublyLinkedList {
-    private Node head;
-
-    public  DoublyLinkedList() {
+    public CircularDoublyLinkedList() {
         this.head = null;
     }
 
     public void insertFirstNode(String data) {
-        Node newNode = new Node(data);
+        ListNode newNode = new ListNode(data);
         if (head == null) {
             head = newNode;
+            newNode.next = newNode;
+            newNode.prev = newNode;
         } else {
-            newNode.next = head;
-            head.prev = newNode;
+            ListNode current = head;
+            ListNode prev = current.prev;
+            newNode.prev = prev;
+            newNode.next = current;
+            current.prev = newNode;
+            prev.next = newNode;
             head = newNode;
         }
     }
 
-    public void insertMiddleNode(Node pre, String data) {
-        Node newNode = new Node(data);
+    public void insertMiddleNode(ListNode pre, String data) {
+        ListNode newNode = new ListNode(data);
+
         if (head == null) {
             head = newNode;
+            newNode.prev = newNode;
+            newNode.next = newNode;
         } else {
             newNode.next = pre.next;
             newNode.prev = pre;
             pre.next = newNode;
-            newNode.next.prev = newNode;
+            pre.next.prev = newNode;
         }
     }
 
     public void insertLastNode(String data) {
-        Node newNode = new Node(data);
+        ListNode newNode = new ListNode(data);
 
         if (head == null) {
             head = newNode;
+            newNode.prev = newNode;
+            newNode.next = newNode;
         } else {
-            Node current = head;
-            while (current.next != null) {
+            ListNode current = head;
+
+            while (current.next != head) {
                 current = current.next;
             }
-            current.next = newNode;
+
+            newNode.next = current.next;
             newNode.prev = current;
+            current.next.prev = newNode;
+            current.next = newNode;
         }
-    }
-
-    public String deleteNode(Node old) {
-        String data = old.data;
-        old.prev.next = old.next;
-        old.next.prev = old.prev;
-
-        return data;
     }
 
     public void deleteFirstNode() {
         if (head == null) {
-            System.out.println("삭제할 리스트 존재 x");
+            System.out.println("삭제할 리스트가 없당.");
         } else {
-            head.next.prev = null;
+            head.next.prev = head.prev;
+            head.prev.next = head.next;
             head = head.next;
         }
     }
 
     public void deleteMiddleNode(String data) {
         if (head == null) {
-            System.out.println("삭제할 리스트 존재 x");
+            System.out.println("삭제할 리스트가 없당.");
         } else {
-            Node current = head;
+            ListNode current = head;
 
             while (current.getData() != data) {
                 current = current.next;
             }
-            current.prev.next = current.next;
+
             current.next.prev = current.prev;
+            current.prev.next = current.next;
         }
     }
 
     public void deleteLastNode() {
         if (head == null) {
-            System.out.println("삭제할 리스트 존재 x");
+            System.out.println("삭제할 리스트가 없당.");
         } else {
-            Node current = head;
+            ListNode current = head;
 
-            while (current.next != null) {
+            while (current.next != head) {
                 current = current.next;
             }
-
-            current.prev.next = null;
-            current.prev = null;
+            current.next.prev = current.prev;
+            current.prev.next = current.next;
         }
     }
 
-    public Node searchNode(String data) {
+    public ListNode searchNode(String data) {
         if (head == null) {
-            return  null;
+            return null;
         } else {
-            Node current = head;
+            ListNode current = head;
 
-            while (current.data != data) {
+            while (current.getData() != data) {
                 current = current.next;
             }
 
@@ -182,9 +192,9 @@ class DoublyLinkedList {
         if (head == null) {
             System.out.println("출력 할게 없엉.");
         } else {
-            Node current = head;
+            ListNode current = head;
 
-            while (current.next != null) {
+            while (current.next != head) {
                 System.out.print(current.data + " ");
                 current = current.next;
             }
