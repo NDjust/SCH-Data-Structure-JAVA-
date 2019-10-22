@@ -1,5 +1,7 @@
 package Practice;
 
+import java.util.List;
+
 public class CircularDoubly {
     public static void main(String[] args) {
         CircularDoublyLinkedList DL = new CircularDoublyLinkedList();
@@ -53,18 +55,12 @@ class ListNode {
     }
 
     public ListNode(String data) {
-        this.data = data;
         this.next = null;
+        this.data = data;
         this.prev = null;
     }
 
-    public ListNode(String data, ListNode prev) {
-        this.data = data;
-        this.prev = prev;
-        this.next = null;
-    }
-
-    public ListNode(String data, ListNode prev, ListNode next) {
+    public ListNode(ListNode prev, String data, ListNode next) {
         this.data = data;
         this.prev = prev;
         this.next = next;
@@ -89,12 +85,11 @@ class CircularDoublyLinkedList {
             newNode.next = newNode;
             newNode.prev = newNode;
         } else {
-            ListNode current = head;
-            ListNode prev = current.prev;
+            ListNode prev = head.prev;
             newNode.prev = prev;
-            newNode.next = current;
-            current.prev = newNode;
-            prev.next = newNode;
+            newNode.next = head;
+            head.prev = newNode;
+            prev.next = newNode;// 대표 노드 앞 노드를 새 노드에 연결
             head = newNode;
         }
     }
@@ -109,8 +104,8 @@ class CircularDoublyLinkedList {
         } else {
             newNode.next = pre.next;
             newNode.prev = pre;
-            pre.next = newNode;
             pre.next.prev = newNode;
+            pre.next = newNode;
         }
     }
 
@@ -127,7 +122,6 @@ class CircularDoublyLinkedList {
             while (current.next != head) {
                 current = current.next;
             }
-
             newNode.next = current.next;
             newNode.prev = current;
             current.next.prev = newNode;
@@ -154,7 +148,6 @@ class CircularDoublyLinkedList {
             while (current.getData() != data) {
                 current = current.next;
             }
-
             current.next.prev = current.prev;
             current.prev.next = current.next;
         }
@@ -169,8 +162,9 @@ class CircularDoublyLinkedList {
             while (current.next != head) {
                 current = current.next;
             }
-            current.next.prev = current.prev;
             current.prev.next = current.next;
+            current.next.prev = current.prev;;
+
         }
     }
 

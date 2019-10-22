@@ -1,26 +1,46 @@
 package MidtermPrac;
 
 public class LinkedStack {
+
     public static void main(String[] args) {
+        char deletedItem;
+        Stack LS = new Stack();
+
+        LS.push('A');
+        LS.printStack();
+
+        LS.push('B');
+        LS.printStack();
+
+        LS.push('C');
+        LS.printStack();
+
+        deletedItem = LS.pop();
+
+        if (deletedItem != 0) {
+            System.out.println("deleted item : " + deletedItem);
+        }
+
+        LS.printStack();
 
     }
 }
 
 class StackNode {
-    int data;
-     StackNode next;
+    char data;
+    StackNode next;
 
     public StackNode() {
         this.data = 0;
         this.next = null;
     }
 
-    public StackNode(int data) {
+    public StackNode(char data) {
         this.data = data;
         this.next = null;
     }
 
-    public StackNode(int data, StackNode next) {
+    public StackNode(char data, StackNode next) {
         this.data = data;
         this.next = next;
     }
@@ -35,18 +55,18 @@ class Stack {
         return top == null;
     }
 
-    public void push(int data) {
+    public void push(char data) {
         StackNode newNode = new StackNode(data);
-
-        top.next = newNode;
-        newNode = top;
+        newNode.next = top;
+        top = newNode;
+        System.out.println("Inserted item : " + data);
     }
 
-    public int pop() {
+    public char pop() {
         if (top == null) {
             return 0;
         } else {
-            int data = top.data;
+            char data = top.data;
             top = top.next;
             return data;
         }
@@ -56,4 +76,18 @@ class Stack {
         return top.data;
     }
 
+    public void printStack() {
+        if (isEmpty()) {
+            System.out.printf("Array Stack is empty!! %n %n");
+        } else {
+
+            StackNode temp = top;
+            System.out.println("Array Stack>> ");
+            while (temp != null) {
+                System.out.printf("\t %c \n", temp.data);
+                temp = temp.next;
+            }
+            System.out.println();
+        }
+    }
 }
