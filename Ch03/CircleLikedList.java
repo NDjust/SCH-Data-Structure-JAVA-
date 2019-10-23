@@ -142,12 +142,10 @@ class CircularList {
             System.out.println("지울 노드가 존재 x ");
         } else  {
             ListNode prev = head;
-            ListNode current = head;
-            while (current.data != data) {
-                prev = current;
-                current = current.next;
+            while (prev.next.data != data) {
+                prev = prev.next;
             }
-            prev.next = current.next;
+            prev.next = prev.next.next;
         }
     }
     public ListNode searchNode(String data) {

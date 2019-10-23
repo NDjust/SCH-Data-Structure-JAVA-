@@ -43,17 +43,17 @@ class LinearQueue {
         this.DataArray = new char[queueSize];
     }
 
-    public boolean isEmpty() {
-        return front == rear;
+    public boolean isEmpty(){
+        return (rear == -1);
     }
 
     public boolean isFull() {
-        return rear == queueSize - 1;
+        return (rear == queueSize - 1);
     }
 
     public void enQueue(char data) {
         if (isFull()) {
-            System.out.println("꽉 참!!");
+            System.out.println("꽉찼어유");
         } else {
             DataArray[++rear] = data;
         }
@@ -68,12 +68,20 @@ class LinearQueue {
         }
     }
 
+    public void delete() {
+        if (isEmpty()) {
+            System.out.println("비어 있어용");
+        } else {
+            front++;
+        }
+    }
+
     public char peek() {
         if (isEmpty()) {
             System.out.println("비어 있어용");
             return 0;
         } else {
-            return DataArray[front];
+            return DataArray[front + 1];
         }
     }
 

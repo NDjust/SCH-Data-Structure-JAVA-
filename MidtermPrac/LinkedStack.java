@@ -57,13 +57,18 @@ class Stack {
 
     public void push(char data) {
         StackNode newNode = new StackNode(data);
-        newNode.next = top;
-        top = newNode;
-        System.out.println("Inserted item : " + data);
+
+        if (isEmpty()) {
+            top = newNode;
+        } else {
+            newNode.next = top;
+            top = newNode;
+        }
     }
 
     public char pop() {
-        if (top == null) {
+        if (isEmpty()) {
+            System.out.println("비어 있어여 ㅠㅠ");
             return 0;
         } else {
             char data = top.data;
@@ -72,8 +77,13 @@ class Stack {
         }
     }
 
-    public int peek() {
-        return top.data;
+    public char peek() {
+        if (isEmpty()) {
+            System.out.println("비어 있어요 ㅠㅠ");
+            return 0;
+        } else {
+            return top.data;
+        }
     }
 
     public void printStack() {

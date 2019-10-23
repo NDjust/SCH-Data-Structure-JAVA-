@@ -28,7 +28,7 @@ class OperatePoly {
         ListNode b = B.head;
         Polynomial C = new Polynomial();
 
-        while (a != null & b != null) {
+        while (a != null && b != null) {
             if (a.expo == b.expo) {
                 C.appendTerm(a.coef + b.coef, b.expo);
                 a = a.link;

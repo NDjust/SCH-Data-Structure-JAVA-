@@ -3,7 +3,7 @@ package Ch05;
 public class ex_Exprssion {
     public static void main(String[] args) {
         OptExp opt = new OptExp();
-        String exp = "(3*5)-(6/2)";
+        String exp = "(3*5)-(6/2) * (2 + 1)";
         char postfix[];
         int value;
 
@@ -62,7 +62,7 @@ class OptExp {
     public char[] to_post_fix(String infix) {
         char testCh;
         exp = infix;
-        int expSize = 10;
+        int expSize = 20;
         int j = 0;
         char postfix[] = new char[expSize];
         LinkedStack S = new LinkedStack();
@@ -94,7 +94,10 @@ class OptExp {
                 default:
             }
         }
-        postfix[j]  = S.pop(); /* output last stack element. */
+
+        while (S.isEmpty() != true) {
+            postfix[j++]  = S.pop(); /* output last stack element. */
+        }
         return postfix;
     }
 }

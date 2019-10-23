@@ -54,10 +54,11 @@ class LinkedListQueue {
     public void enQueue(char data) {
         QNode newNode = new QNode();
         newNode.data = data;
-//        newNode.next = null;
+        newNode.next = null;
+
         if (isEmpty()) {
-            rear = newNode;
             front = newNode;
+            rear = newNode;
         } else {
             rear.next = newNode;
             rear = newNode;
@@ -66,7 +67,7 @@ class LinkedListQueue {
 
     public char deQueue() {
         if (isEmpty()) {
-            System.out.println("비어 있습니다.");
+            System.out.println("Empty!!");
             return 0;
         } else {
             char data = front.data;
@@ -79,9 +80,21 @@ class LinkedListQueue {
         }
     }
 
+    public void delete() {
+        if (isEmpty()) {
+            System.out.println("Empty!!");
+        } else {
+            front = front.next;
+
+            if (front == null) {
+                rear = null;
+            }
+        }
+    }
+
     public char peek() {
         if (isEmpty()) {
-            System.out.println("비어 있습니당");
+            System.out.println("Empty!!");
             return 0;
         } else {
             return front.data;

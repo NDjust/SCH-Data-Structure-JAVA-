@@ -55,9 +55,9 @@ class CQueue {
 
     public void enQueue(char data) {
         if (isFull()) {
-            System.out.println("꽉 찼어요.");
+            System.out.println("꽉 찾어용!");
         } else {
-            rear  = (rear + 1) % this.QueueSize;
+            rear = (rear + 1) % this.QueueSize;
             itemArray[rear] = data;
         }
     }
@@ -72,9 +72,17 @@ class CQueue {
         }
     }
 
+    public void delete() {
+        if (isEmpty()) {
+            System.out.println("비어 있어요");
+        } else {
+            front = (front + 1) % this.QueueSize;
+        }
+    }
+
     public char peek() {
         if (isEmpty()) {
-            System.out.println("비어 있어요.");
+            System.out.println("비어 있어요");
             return 0;
         } else {
             return itemArray[(front + 1) % this.QueueSize];

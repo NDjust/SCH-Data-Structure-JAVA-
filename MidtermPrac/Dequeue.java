@@ -69,6 +69,7 @@ class Dqueue{
         } else {
             front.prev = newNode;
             newNode.next = front;
+            newNode.prev = null;
             front = newNode;
         }
     }
@@ -80,7 +81,6 @@ class Dqueue{
         if (isEmpty()) {
             front = newNode;
             rear = newNode;
-
             newNode.next = null;
             newNode.prev = null;
         } else {
@@ -93,7 +93,7 @@ class Dqueue{
 
     public char deleteFront() {
         if (isEmpty()) {
-            System.out.println("비어 있어용");
+            System.out.println("비어 있습니다.");
             return 0;
         } else {
             char data = front.data;
@@ -104,22 +104,21 @@ class Dqueue{
                 front = front.next;
                 front.prev = null;
             }
-
             return data;
         }
     }
 
     public char deleteRear() {
         if (isEmpty()) {
-            System.out.println("비어 있어용");
+            System.out.println("비어 있습니다.");
             return 0;
         } else {
             char data = rear.data;
 
             if (rear.prev == null) {
-                front = null;
                 rear = null;
-            }else {
+                front = null;
+            } else {
                 rear = rear.prev;
                 rear.next = null;
             }
@@ -129,7 +128,7 @@ class Dqueue{
 
     public void removeFront() {
         if (isEmpty()) {
-            System.out.println("비어 있어요");
+            System.out.println("Empty!!");
         } else {
             if (front.next == null) {
                 front = null;
@@ -143,7 +142,7 @@ class Dqueue{
 
     public void removeRear() {
         if (isEmpty()) {
-            System.out.println("비어 있어용");
+            System.out.println("Empty!!");
         } else {
             if (rear.prev == null) {
                 front = null;
@@ -157,7 +156,7 @@ class Dqueue{
 
     public char peekFront() {
         if (isEmpty()) {
-            System.out.println("비어 있어요.");
+            System.out.println("Empty!!");
             return 0;
         } else {
             return front.data;
@@ -166,7 +165,7 @@ class Dqueue{
 
     public char peekRear() {
         if (isEmpty()) {
-            System.out.println("비어 있어용");
+            System.out.println("Empty!!");
             return 0;
         } else {
             return rear.data;

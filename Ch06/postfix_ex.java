@@ -54,7 +54,7 @@ class OptExp2 {
         for (int i = 0; i < exp.length(); i++) {
             testCh = exp.charAt(i);
             if (testCh != '+' && testCh != '-' && testCh != '*' && testCh != '/') {
-                value = testCh - '0'; /* 아스키 코드 활용(cast) 0을 왜빼냐? cast 자료형 변환을 위해 (문자열을 숫자로 바꾸는 법 중 하나임.)*/
+                value = testCh - '0'; /* 아스키 코드 활용(cast) 0을 왜빼냐? casting 자료형 변환을 위해 (문자열을 숫자로 바꾸는 법 중 하나임.)*/
                 S.push(value);
             } else {
                 opr2 = S.pop();

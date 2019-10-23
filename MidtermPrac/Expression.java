@@ -19,13 +19,12 @@ public class Expression {
 
     }
 
-    public boolean testPair(String str) {
+   public boolean testPair(String exp) {
+        char ch;
 
         Stack stack = new Stack();
-
-        for (int i = 0; i < str.length(); i++) {
-            char ch = str.charAt(i);
-
+        for (int i = 0; i < exp.length(); i++) {
+            ch = exp.charAt(i);
             switch (ch) {
                 case '(':
                 case '[':
@@ -35,26 +34,20 @@ public class Expression {
                 case ')':
                 case ']':
                 case '}':
-                    if (stack.isEmpty()) {
-                        return false;
-                    } else {
-                        if ((ch == ')' && stack.peek() != '(') || (ch == ']' && stack.peek() != '[') || (ch == '}' && stack.peek() != '{')) {
-                            return false;
-                        } else {
-                            stack.pop();
-                            break;
-                        }
-                    }
+                char testCh = stack.pop();
+
+                if ((ch == '(' && testCh != ')') || (ch == '[' && testCh != ']') || (ch == '{' && testCh != '}')) {
+                    return false;
+                } else {
+                    break;
+                }
             }
         }
-
         if (stack.isEmpty()) {
             return true;
-        } else {
-            return false;
         }
-
-    }
+        return false;
+   }
 
     public char[] post_to_fix(String infix) {
         char ch;

@@ -32,31 +32,30 @@ class ArrayStack {
     private char itemArray[];
 
     public ArrayStack(int stackSize) {
-        top = -1;
+        this.top = -1;
         this.stackSize = stackSize;
-        itemArray = new char[stackSize];
+        this.itemArray = new char[stackSize];
     }
 
     public boolean isEmpty() {
-        return top == -1;
+        return (top == -1);
     }
 
     public boolean isFull() {
-        return (top == this.stackSize - 1);
+        return (top == stackSize - 1);
     }
 
-    public void push (char item) {
+    public void push(char data) {
         if (isFull()) {
-            System.out.println("넣을 수 없습니다.");
+            System.out.println("꽉차서 안들어가요 ㅠㅠ");
         } else {
-            itemArray[++top] = item;
-            System.out.println("Inserted Item : " + item);
+            itemArray[++top] = data;
         }
     }
 
     public char pop() {
         if (isEmpty()) {
-            System.out.println("뺄 수 없습니다.");
+            System.out.println("비어 있어요 ㅠㅠ");
             return 0;
         } else {
             return itemArray[top--];
@@ -65,7 +64,7 @@ class ArrayStack {
 
     public void delete() {
         if (isEmpty()) {
-            System.out.println("뺄 수 없습니다.");
+            System.out.println("비어 있어요 ㅠㅠ");
         } else {
             top--;
         }
@@ -73,7 +72,7 @@ class ArrayStack {
 
     public char peek() {
         if (isEmpty()) {
-            System.out.println("보여줄게 없엉");
+            System.out.println("비어 있어요 ㅠㅠ");
             return 0;
         } else {
             return itemArray[top];
