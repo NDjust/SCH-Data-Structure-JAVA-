@@ -131,9 +131,9 @@ class CircularList {
             while (current.next != head) {
                 current = current.next;
             }
-            ListNode old = current.next;
-            head = old.next;
-            current.next = head;
+            current.next = current.next.next;
+            head = current.next;
+
         }
     }
     public void deleteMiddleNode(String data) {
