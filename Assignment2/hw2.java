@@ -33,7 +33,7 @@ class Coloring {
         int color;
 
         if (valid(G, i)) {
-            if (i == N) { // 정점을 모드 검사했으면 종료.
+            if (i == N) { // 정점을 모두 검사했으면 종료.
                 count = N;
                 return;
             } else {
