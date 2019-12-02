@@ -18,6 +18,15 @@ class SingleSourceShortestPath {
     // 모든 정점에 대해, 출발 정점으로부터 각 정점까지 최단 경로를 거리와 함께 출력
     static void printShortestPath(int d[], int p[], int n) {
 
+        System.out.println("정점    거리    최단경로");
+
+        for (int i = 0; i < n; i++) {
+
+            System.out.printf("%d    %d    %d\n", i, d[i], p[i]);
+
+
+        }
+
     }
 
     static void dijkstra(int W[][], int src, int n) {
@@ -35,6 +44,18 @@ class SingleSourceShortestPath {
         for (int count = 0; count < n -1; count++) {
             int u = findMinDistance(d, T, n);
             T[u] = true;
+
+
+            for (int i = 0; i < n; ++i) {
+                if (!T[i] && d[u] + W[u][i] != 0) {
+                    if (d[i] > d[u] + W[u][i]) { // 최단 거리 업데이트.
+                        d[i] = d[u] + W[u][i];
+                        System.out.printf("%d %d\n",p[i] + 1, u);
+                        p[i] = u;
+                    }
+                }
+            }
+
         }
         printShortestPath(d, p, n);
     }
