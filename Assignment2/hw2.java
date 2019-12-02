@@ -28,6 +28,7 @@ class Coloring {
     int m;
     int count = 0;
     int[] vcolor; // 각 노드별 색깔 (vertex color)
+    int check_count = 0;
 
     public void m_coloring(int G[][], int i) {
         int color;
@@ -39,7 +40,8 @@ class Coloring {
             } else {
                 for (color = 1; color <= m; color++) { // 반복할 때 마다 모든 컬러를 넣어봄.
                     vcolor[i + 1] = color;
-                    System.out.println(vcolor[i + 1]);
+                    check_count++;
+                    System.out.printf("v color %d, %d %d \n",i+1,  vcolor[i + 1], check_count);
                     m_coloring(G, i + 1);
                 }
             }

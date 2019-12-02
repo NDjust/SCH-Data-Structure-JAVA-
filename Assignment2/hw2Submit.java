@@ -10,20 +10,22 @@ public class hw2Submit {
         }
 
         // Set up Graph
-        AL.insertEdge(0, 1);
-        AL.insertEdge(0, 3);
         AL.insertEdge(0, 4);
-        AL.insertEdge(1, 0);
-        AL.insertEdge(1, 2);
+        AL.insertEdge(0, 3);
+        AL.insertEdge(0, 1);
+
         AL.insertEdge(1, 3);
-        AL.insertEdge(2, 1);
+        AL.insertEdge(1, 2);
+        AL.insertEdge(1, 0);
         AL.insertEdge(2, 3);
-        AL.insertEdge(3, 0);
-        AL.insertEdge(3, 1);
-        AL.insertEdge(3, 2);
+        AL.insertEdge(2, 1);
         AL.insertEdge(3, 4);
-        AL.insertEdge(4, 0);
+        AL.insertEdge(3, 2);
+        AL.insertEdge(3, 1);
+        AL.insertEdge(3, 0);
         AL.insertEdge(4, 3);
+        AL.insertEdge(4, 0);
+
         AL.printAdjust();
 
         col.N = 5;
@@ -93,7 +95,6 @@ class Color {
             } else {
                 for (color = 1; color <= m; color++) { // 반복할 때 마다 모든 컬러를 넣어봄.
                     vcolor[i + 1] = color;
-                    System.out.println(vcolor[i + 1]);
                     m_coloring(nodes, i + 1);
                 }
             }
@@ -103,10 +104,15 @@ class Color {
     public boolean valid(Node[] nodes, int i) {
         int j = 1;
         while (j < i) {
-            if (nodes[j - 1].next != null && vcolor[i] == vcolor[j]) {
-                System.out.printf("test\n");
+            if (nodes[i - 1] != null && vcolor[i] == vcolor[j]) {
                 return false;
             }
+
+            if (nodes[i - 1].next == null) { // 인접 행렬이 없을 때 break.
+                break;
+            }
+
+            nodes[i - 1] = nodes[i - 1].next;
             j++;
         }
         return true;
