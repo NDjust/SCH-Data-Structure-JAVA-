@@ -1,5 +1,6 @@
 package Assignment2;
-
+import java.lang.reflect.Array;
+import java.util.*;
 
 class SingleSourceShortestPath {
     // 최단 경로 트리에 아직 포함되지 않은 정점들의 집합에서 출발 정점으로부터 최소 거리에 있는 정점을 찾음
@@ -17,12 +18,36 @@ class SingleSourceShortestPath {
     }
     // 모든 정점에 대해, 출발 정점으로부터 각 정점까지 최단 경로를 거리와 함께 출력
     static void printShortestPath(int d[], int p[], int n) {
-
-        System.out.println("정점    거리    최단경로");
+        System.out.println("정점    최단거리    최단경로");
+        p[0] = 0;
 
         for (int i = 0; i < n; i++) {
 
-            System.out.printf("%d    %d    %d\n", i, d[i], p[i]);
+            System.out.printf("%d       %d           ", i, d[i]);
+
+            int[] MinDis = new int[n];
+            for (int j = 1; j < n; j++) {
+
+                if (d[i] >=  d[j]) {
+                    MinDis[j] = p[j];
+                }
+
+            }
+
+            Arrays.sort(MinDis);
+
+            if (i != 0) {
+                System.out.printf("0 - ");
+            }
+
+            for (int k = 1; k < n; k++) {
+                if (MinDis[k] == MinDis[k - 1]) {
+                    continue;
+                }
+                System.out.printf("%d - ", MinDis[k]);
+
+            }
+            System.out.printf("%d\n",i);
 
 
         }
@@ -45,17 +70,16 @@ class SingleSourceShortestPath {
             int u = findMinDistance(d, T, n);
             T[u] = true;
 
-
-            for (int i = 0; i < n; ++i) {
-                if (!T[i] && d[u] + W[u][i] != 0) {
-                    if (d[i] > d[u] + W[u][i]) { // 최단 거리 업데이트.
+            // 선택한 정점을 통해서 갈 수 있는 (인접한) 정점의 가중치를 갱신
+            for (int i = 0; i < n; i++) {
+                // 사용하지 않은 정점, 인접한 정점, 가중치가 지금보다 더 작으면 갱신.
+                if (!T[i] && W[u][i] != 9999) {
+                    if (d[i] >= d[u] + W[u][i]) { // 최단 거리 업데이트.
                         d[i] = d[u] + W[u][i];
-                        System.out.printf("%d %d\n",p[i] + 1, u);
                         p[i] = u;
                     }
                 }
             }
-
         }
         printShortestPath(d, p, n);
     }

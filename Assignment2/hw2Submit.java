@@ -35,7 +35,7 @@ public class hw2Submit {
             col.m += 1;
             col.m_coloring(AL.head, 0);
         } while (col.count != col.N);
-        System.out.println("Graph Coloring 에 필요한 최소 색깔 수: " + col.m);
+        System.out.println("\nGraph Coloring 에 필요한 최소 색깔 수: " + col.m);
 
     }
 }
@@ -83,7 +83,7 @@ class Color {
     int N;
     int m;
     int count = 0;
-    int[] vcolor;
+    int[] vcolor = new int[10]; // 원본 파일을 지워도 null pointer 에러가 나서 초기화.
 
     public void m_coloring(Node[] nodes, int i) {
         int color;
