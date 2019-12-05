@@ -25,60 +25,60 @@ public class HP {
 }
 
 class Heap {
-    private int heapSize;
-    private int itemHeap[];
+    private int HeapSize;
+    private int itemheap[];
 
     public Heap() {
-        heapSize = 0;
-        itemHeap = new int[50];
+        HeapSize = 0;
+        itemheap = new int[50];
     }
 
     public void insertHeap(int item) {
-        int i = ++heapSize;
+        int i = ++HeapSize;
 
-        while ((i != 1) && (item > itemHeap[i / 2])) {
-            itemHeap[i] = itemHeap[i / 2];
+        while ((i != 1 && (item > itemheap[i / 2]))) {
+            itemheap[i] = itemheap[i / 2];
             i /= 2;
         }
-        itemHeap[i] = item;
+        itemheap[i] = item;
     }
 
     public int getHeapSize() {
-        return this.heapSize;
+        return HeapSize;
     }
 
     public int deleteHeap() {
         int parent, child;
-        int item, temp;
-
-        item = itemHeap[1];
-        temp = itemHeap[heapSize--];
+        int item = itemheap[1];
+        int temp = itemheap[HeapSize--];
 
         parent = 1;
         child = 2;
 
-        while (child <= heapSize) {
-            if ((child < heapSize) && (itemHeap[child] < itemHeap[child + 1])) {
+        while (child <= HeapSize) {
+            // 오른쪽 자식 노드가 왼쪽 자식 노드보다 크다면 오른쪽 자식 노드로 변경!
+            if ((child < HeapSize) && (itemheap[child] < itemheap[child + 1])) {
                 child++;
             }
 
-            if (temp >= itemHeap[child]) {
+            if (temp >= itemheap[child]) {
                 break;
             }
-
-            itemHeap[parent] = itemHeap[child];
-            parent = child;
+            itemheap[parent] = itemheap[child]; // 부모노드의 값을 자식 노드와 바꾸기.
+            parent = child; // 점검할 부모 노드 위치 변경.
             child *= 2;
         }
-        itemHeap[parent] = temp;
+        itemheap[parent] = temp;
         return item;
     }
 
-    public void printHeap() {
-        System.out.printf("\n Heap >>> ");
+    public void printHeap(){
+        System.out.printf("\nHeap >>> ");
 
-        for (int i = 1; i <= heapSize; i++) {
-            System.out.printf("[%d] ", itemHeap[i]);
+        for (int i = 1; i <= HeapSize; i++) {
+            System.out.printf("[%d] ", itemheap[i]);
         }
     }
+
+
 }
