@@ -36,7 +36,7 @@ class Heap {
     public void insertHeap(int item) {
         int i = ++HeapSize;
 
-        while ((i != 1 && (item > itemheap[i / 2]))) {
+        while ((i != 1) && (item > itemheap[i / 2])) {
             itemheap[i] = itemheap[i / 2];
             i /= 2;
         }
@@ -49,14 +49,16 @@ class Heap {
 
     public int deleteHeap() {
         int parent, child;
-        int item = itemheap[1];
-        int temp = itemheap[HeapSize--];
+        int item, temp;
+
+        item = itemheap[1];
+        temp = itemheap[HeapSize--];
 
         parent = 1;
         child = 2;
 
         while (child <= HeapSize) {
-            // 오른쪽 자식 노드가 왼쪽 자식 노드보다 크다면 오른쪽 자식 노드로 변경!
+            // 왼쪽 오른쪽 결정
             if ((child < HeapSize) && (itemheap[child] < itemheap[child + 1])) {
                 child++;
             }
@@ -64,8 +66,9 @@ class Heap {
             if (temp >= itemheap[child]) {
                 break;
             }
-            itemheap[parent] = itemheap[child]; // 부모노드의 값을 자식 노드와 바꾸기.
-            parent = child; // 점검할 부모 노드 위치 변경.
+
+            itemheap[parent] = itemheap[child];
+            parent = child;
             child *= 2;
         }
         itemheap[parent] = temp;
