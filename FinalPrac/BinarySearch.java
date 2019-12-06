@@ -12,7 +12,6 @@ class BinarySearchTree {
 
     public Node insertKey(Node root, char x) {
         Node p = root;
-
         Node newNode = new Node();
         newNode.data = x;
         newNode.left = null;
@@ -20,16 +19,15 @@ class BinarySearchTree {
 
         if (p == null) {
             return newNode;
-        }else if (newNode.data > p.data) {
-            p.right = insertKey(p.right, x);
-            return p;
-        } else if (newNode.data < p.data){
+        } else if (p.data > newNode.data) {
             p.left = insertKey(p.left, x);
+            return p;
+        } else if (p.data < newNode.data) {
+            p.right = insertKey(p.right, x);
             return p;
         } else {
             return p;
         }
-
     }
 
     public void insertBST(char x) {
