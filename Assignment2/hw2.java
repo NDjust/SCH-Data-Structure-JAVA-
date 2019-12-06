@@ -28,38 +28,32 @@ class Coloring {
     int m;
     int count = 0;
     int[] vcolor; // 각 노드별 색깔 (vertex color)
-    int check_count = 0;
 
     public void m_coloring(int G[][], int i) {
-        int color;
 
         if (valid(G, i)) {
-            if (i == N) { // 정점을 모두 검사했으면 종료.
+            if (i == N) {
                 count = N;
                 return;
             } else {
-                for (color = 1; color <= m; color++) { // 반복할 때 마다 모든 컬러를 넣어봄.
+                for (int color = 1; color <= m; color++) {
                     vcolor[i + 1] = color;
-                    check_count++;
-                    System.out.printf("v color %d, %d %d \n",i+1,  vcolor[i + 1], check_count);
                     m_coloring(G, i + 1);
                 }
             }
         }
+
     }
 
     public boolean valid(int G[][], int i) {
         int j = 1;
         while (j < i) {
-            // System.out.println(G[i - 1][j - 1]);
-            // System.out.println(vcolor[i]);
-            // System.out.println(vcolor[j]);
             if (G[i - 1][j - 1] == 1 && vcolor[i] == vcolor[j]) {
-                // 인접한 정점인가? && 인접한 정점이 현재 select 한 컬러와 똑같은가?
-                return false; // 그렇다면 select 한 컬러는 답이 될 수 없음.
+                return false;
             }
             j++;
         }
+
         return true;
     }
 }

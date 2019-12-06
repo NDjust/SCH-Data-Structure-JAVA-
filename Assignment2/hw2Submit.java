@@ -33,7 +33,7 @@ public class hw2Submit {
 
         do {
             col.m += 1;
-            col.m_coloring(AL.head, 0);
+            col.m_coloring(AL, 0);
         } while (col.count != col.N);
         System.out.println("\nGraph Coloring 에 필요한 최소 색깔 수: " + col.m);
 
@@ -55,25 +55,26 @@ class AdjList {
     }
 
     public void insertEdge(int v1, int v2) {
-        if (v1 >= totalV || v2 >= totalV) {
-            System.out.println("그래프에 없는 정점입니다!!");
+        if (v1 >= totalV && v2 >= totalV) {
+            System.out.println("해당하는 정점이 존재하지 않습니다!!");
+            return;
         } else {
-            Node gNode = new Node();
-            gNode.vertex = v2;
-            gNode.next = head[v1];
-            head[v1] = gNode;
+            Node newNode = new Node();
+            newNode.vertex = v2;
+            newNode.next = head[v1];
+            head[v1] = newNode;
         }
+
     }
 
     public void printAdjust() {
-        Node gNode = new Node();
+        Node node = new Node();
         for (int i = 0; i < totalV; i++) {
-            System.out.printf("\n 정점 %d 인접리스트", i + 1);
-            gNode = head[i];
-
-            while (gNode != null) {
-                System.out.printf("-> %d", gNode.vertex + 1);
-                gNode = gNode.next;
+            node = head[i];
+            System.out.printf("\n정접 %c의 인접리스트 : ", i + 65);
+            while (node != null) {
+                System.out.printf("-> %c", node.vertex + 65);
+                node = node.next;
             }
         }
     }
@@ -85,35 +86,34 @@ class Color {
     int count = 0;
     int[] vcolor = new int[10]; // 원본 파일을 지워도 null pointer 에러가 나서 초기화.
 
-    public void m_coloring(Node[] nodes, int i) {
+    public void m_coloring(AdjList nodes, int i) {
         int color;
 
         if (valid(nodes, i)) {
-            if (i == N) { // 정점을 모두 검사했으면 종료.
+            if (N == i) {
                 count = N;
                 return;
             } else {
-                for (color = 1; color <= m; color++) { // 반복할 때 마다 모든 컬러를 넣어봄.
+                for (color = 1; color <= m; color++) {
                     vcolor[i + 1] = color;
                     m_coloring(nodes, i + 1);
                 }
             }
         }
+
     }
 
-    public boolean valid(Node[] nodes, int i) {
-        int j = 1;
-        while (j < i) {
-            if (nodes[i - 1] != null && vcolor[i] == vcolor[j]) {
+    public boolean valid(AdjList nodes, int i) {
+        Node node = new Node();
+        node = nodes.head[i];
+
+        while (node != null) {
+            // node vertex 체크.
+            if (node.vertex < i && vcolor[i] == vcolor[node.vertex]) { // 해당 노드에 인접한 노드들 점검.
                 return false;
+            } else {
+                node = node.next;
             }
-
-            if (nodes[i - 1].next == null) { // 인접 행렬이 없을 때 break.
-                break;
-            }
-
-            nodes[i - 1] = nodes[i - 1].next;
-            j++;
         }
         return true;
     }
