@@ -90,21 +90,22 @@ class AdjMatrix {
 
     public void insertEdge(int v1, int v2) {
         if (v1 >= totalV || v2 >= totalV) {
-            System.out.printf("정점을 초과!!\n");
+            System.out.println("해당 정점은 그래프에 없습니다!");
             return;
         } else {
             matrix[v1][v2] = 1;
         }
+
     }
 
     public void printMatrix() {
+        System.out.println();
         for (int i = 0; i < totalV; i++) {
-            System.out.printf("\n\t\t");
             for (int j = 0; j < totalV; j++) {
                 System.out.printf("%2d ", matrix[i][j]);
             }
+            System.out.printf("\n");
         }
-
     }
 }
 class StackNode {
@@ -116,25 +117,20 @@ class LinkedStack {
     StackNode top;
 
     public boolean isEmpty() {
-        return true;
+        return (top == null);
     }
 
     public void push(int item) {
         StackNode newNode = new StackNode();
         newNode.data = item;
+        newNode.link = top;
+        top = newNode;
 
-        if (top == null) {
-            top = newNode;
-            return;
-        } else {
-            newNode.link = top;
-            top = newNode;
-        }
     }
 
     public int pop() {
         if (isEmpty()) {
-            System.out.println("Deleting fail! Linked Stack is empty!!");
+            System.out.println("삭제할 노드가 없습니다!!");
             return 0;
         } else {
             int item = top.data;
@@ -176,15 +172,17 @@ class LinkedQueue {
             rear.link = newNode;
             rear = newNode;
         }
+
     }
 
     public int dequeue() {
         if (isEmpty()) {
-            System.out.println("Deleting fail!! LinkedQueue is Empty!!");
+            System.out.println("Deleting is fail! Queue is Empty!!");
             return 0;
         } else {
             int item = front.data;
             front = front.link;
+
             if (front == null) {
                 rear = null;
             }
@@ -210,24 +208,24 @@ class AdjList {
 
 
     public void insertEdge(int v1, int v2) {
-        if (v1 >= totalV || v2 >= totalV) {
-            System.out.println("그래프에 없는 정점입니다.");
+        if (v1 >= totalV && v2 >= totalV) {
+            System.out.println("해당 점점은 그래프에 없습니다!");
         } else {
-            GraphNode gNode = new GraphNode();
-            gNode.vertex = v2;
-            gNode.link = head[v1];
-            head[v1] = gNode;
+            GraphNode newNode = new GraphNode();
+            newNode.vertex = v2;
+            newNode.link = head[v1];
+            head[v1] = newNode;
         }
+
     }
 
     public void printAdjust() {
-        GraphNode gNode = new GraphNode();
         for (int i = 0; i < totalV; i++) {
-            System.out.printf("\n 정점 %c의 인접리스트 ", i + 65);
-            gNode = head[i];
-            while (gNode != null) {
-                System.out.printf("-> %c", gNode.vertex + 65);
-                gNode = gNode.link;
+            System.out.printf("\n정점 %c의 인접리스트 ", i + 65);
+            GraphNode w = head[i];
+            while (w != null) {
+                System.out.printf("-> %c", w.vertex + 65);
+                w = w.link;
             }
         }
 
@@ -235,36 +233,39 @@ class AdjList {
     }
 
     public void DFS(int v) {
-        boolean[] visited = new boolean[totalV];
         GraphNode w = new GraphNode();
+        boolean visited[] = new boolean[10];
         LinkedStack S = new LinkedStack();
-
-        S.push(v);
         visited[v] = true;
 
-       while (S.top == null) {
-           w = head[v];
-           while (w != null) {
-               if (visited[w.vertex] == false) {
-                   S.push(w.vertex);
-                   visited[w.vertex] = true;
-                   v = w.vertex;
-                   w = head[v];
-               } else {
-                   w = w.link;
-               }
-           }
-           v = S.pop();
-       }
+        S.push(v);
+        System.out.printf(" %c", v + 65);
+
+        while (!S.isEmpty()) {
+            w = head[v];
+            while (w != null) {
+                if (visited[w.vertex] == false) {
+                    S.push(w.vertex);
+                    visited[w.vertex] = true;
+                    System.out.printf(" %c", w.vertex + 65);
+                    v = w.vertex;
+                    w = head[v];
+                } else {
+                    w = w.link;
+                }
+            }
+            v = S.pop();
+        }
     }
 
     public void BFS(int v) {
         GraphNode w = new GraphNode();
-        LinkedQueue Q = new LinkedQueue();
         boolean visited[] = new boolean[10];
+        LinkedQueue Q = new LinkedQueue();
         visited[v] = true;
-        System.out.printf(" %c", v + 65);
+
         Q.enQueue(v);
+        System.out.printf(" %c", v + 65);
 
         while (!Q.isEmpty()) {
             v = Q.dequeue();
@@ -276,7 +277,7 @@ class AdjList {
                 }
             }
         }
-        
+
     }
 }
 
