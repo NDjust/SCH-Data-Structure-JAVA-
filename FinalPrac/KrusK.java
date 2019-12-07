@@ -13,17 +13,22 @@ public class KrusK {
             parent[i] = i;
         }
 
-        Kruskal KK = new Kruskal();
+        Union_Find UF = new Union_Find();
 
-        KK.unionParent(parent, 1, 2);
-        KK.unionParent(parent, 2, 3);
-        KK.unionParent(parent, 3, 4);
-        KK.unionParent(parent, 5, 6);
-        KK.unionParent(parent, 6, 7);
-        KK.unionParent(parent, 7, 8);
-        KK.unionParent(parent, 1, 7);
+        UF.unionParent(parent, 1, 2);
+        UF.unionParent(parent, 2, 3);
+        UF.unionParent(parent, 3, 4);
+        UF.unionParent(parent, 5, 6);
+        System.out.println(UF.findParent(parent, 1, 5));
+        UF.unionParent(parent, 6, 7);
+        System.out.println(UF.findParent(parent, 1, 5));
+        System.out.println(UF.findParent(parent, 5, 7));
+        UF.unionParent(parent, 7, 8);
+        System.out.println(UF.findParent(parent, 1, 5));
+        System.out.println(UF.findParent(parent, 5, 7));
+        UF.unionParent(parent, 1, 7);
 
-        System.out.println(KK.findParent(parent, 1, 5));
+        System.out.println(UF.findParent(parent, 1, 5));
 
 
         ArrayList<Edge> arr = new ArrayList<>();
@@ -62,21 +67,57 @@ public class KrusK {
     }
 }
 
+class Union_Find {
+    public int getParent(int[] parent, int x) {
+        // 특정 점점의 부모 정점을 찾기 (루트가 나올 때까지 재귀호출 반복)
+        if (parent[x] == x) { // 자기 자신이 부모일 경우.
+            return x;
+        }
+
+        return parent[x] = getParent(parent, parent[x]);
+    }
+
+    public void unionParent(int[] parent, int a, int b) {
+        a = getParent(parent, a);
+        b = getParent(parent, b);
+
+        // 두 부모 정점 중 작은 값을 큰 값의 부모노드로 저장.
+        if (a < b) {
+            parent[b] = a;
+        } else {
+            parent[a] = b;
+        }
+    }
+
+    public int findParent(int[] parent, int a, int b) {
+        a = getParent(parent, a);
+        b = getParent(parent, b);
+
+        // 두 정점의 부모 정점이 일치하면 연결
+        if (a == b) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+}
+
+
 class Edge implements Comparable<Edge> {
-    int node[] = new int[12];
+    int node[] = new int[2];
     int distance;
 
-    public Edge (int a, int b, int distance) {
-        this.node[0] = a;
-        this.node[1] = b;
+    public Edge(int a, int b, int distance) {
+        node[0] = a;
+        node[1] = b;
         this.distance = distance;
     }
 
     @Override
-    public int compareTo(Edge c) {
-        if (this.distance < c.distance) {
+    public int compareTo(Edge C) {
+        if (this.distance < C.distance) {
             return -1;
-        } else if (this.distance > c.distance) {
+        } else if (this.distance > C.distance) {
             return 1;
         }
         return 0;
@@ -85,10 +126,12 @@ class Edge implements Comparable<Edge> {
 
 class Kruskal { // union find
     public int getParent(int[] arr, int x) {
-        if (arr[x] == x ) {
+        if (arr[x] == x) {
             return x;
+        } else {
+            return arr[x] = getParent(arr, arr[x]);
         }
-        return arr[x] = getParent(arr, arr[x]);
+
     }
 
     public void unionParent(int[] arr, int a, int b) {
@@ -100,6 +143,7 @@ class Kruskal { // union find
         } else {
             arr[a] = b;
         }
+
     }
 
     public int findParent(int[] arr, int a, int b) {
