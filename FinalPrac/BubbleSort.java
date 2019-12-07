@@ -27,15 +27,13 @@ class BubbleSorting {
         for (i = a.length - 1; i > 0; i--) {
             for (j = 0; j < i; j++) {
                 if (a[j + 1] < a[j]) {
-                    swap(a, j, j + 1);
+                    int temp;
+                    temp = a[j + 1];
+                    a[j + 1] = a[j];
+                    a[j] = temp;
                 }
             }
-        }
-    }
 
-    public void swap(int arr[], int a, int b) {
-        int temp = arr[a];
-        arr[a] = arr[b];
-        arr[b] = temp;
+        }
     }
 }

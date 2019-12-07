@@ -25,10 +25,44 @@ public class QuickSort {
 class quickSorting {
     int i = 0;
     public void sorting(int a[], int begin, int end) {
-
+        if (begin < end) {
+            int pivot;
+            pivot = partition(a, begin, end);
+            sorting(a, begin, pivot - 1);
+            sorting(a, pivot + 1, end);
+        }
     }
 
     public int partition (int a[], int begin, int end){
-        return 1;
+        int pivot, temp;
+        pivot = (begin + end) / 2;
+        int left = begin;
+        int right = end;
+
+        while (left < right) {
+            while ((a[left] < a[pivot]) && (left < right)) {
+                left++;
+            }
+
+            while ((a[right] >= a[pivot]) && (left < right)) {
+                right--;
+            }
+
+            if (left < right) {
+                temp = a[right];
+                a[right] = a[left];
+                a[left] = temp;
+
+                if (pivot == left) {
+                    pivot = right;
+                }
+            }
+        }
+
+        temp = a[right];
+        a[right] = a[pivot];
+        a[pivot] = temp;
+
+        return right;
     }
 }

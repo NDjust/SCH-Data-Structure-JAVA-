@@ -12,42 +12,38 @@ public class Shell {
         for (int i = 0; i < a.length; i++) {
             System.out.printf(" %d", a[i]);
         }
-
-        System.out.println();
+        System.out.printf("\n정렬한 원소 : ");
         S.ShellSorting(a, size);
+        for (int i = 0; i < a.length; i++) {
+            System.out.printf(" %d", a[i]);
+        }
 
     }
 }
 
 class ShellSort {
     public void IntervalSort(int a[], int begin, int end, int interval) {
-        int i, j, temp;
+        int i, j, item;
 
         for (i = begin + interval; i <= end; i = i + interval) {
-            temp = a[i];
-
-            for (j = i - interval; j >= begin && temp < a[j]; j -= interval) {
-                a[j + interval] = a[j];
+            item = a[i];
+            for (j = i - interval; j >= begin && a[j] > item; j -= interval) {
+                a[interval + j] = a[j];
             }
-            a[j + interval] = temp;
+            a[interval + j] = item;
         }
+
     }
 
     public void ShellSorting(int a[], int size) {
-        int i, j, interval, t = 0;
-        interval = size/2;
+        int i, j, interval;
+        interval = size / 2;
 
         while (interval >= 1) {
             for (i = 0; i < interval; i++) {
                 IntervalSort(a, i, size - 1, interval);
             }
-            System.out.printf("\n 쉘 정렬 %d 단계 : interval = %d >> ", ++t, interval);
-            for (j = 0; j < size; j++) {
-                System.out.printf("%d  ", a[j]);
-            }
-            System.out.println();
             interval /= 2;
         }
-
     }
 }

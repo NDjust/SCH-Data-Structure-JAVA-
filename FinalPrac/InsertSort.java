@@ -23,5 +23,16 @@ public class InsertSort {
 
 class InsertionSort {
     public void InsertionSorting(int arr[], int size) {
+        int i, j, temp;
+
+        for (i = 1; i < arr.length; i++) {
+            temp = arr[i];
+            j = i;
+            while ((j > 0) && (arr[j - 1] > temp)) {
+                arr[j] = arr[j - 1];
+                j--;
+            }
+            arr[j] = temp;
+        }
     }
 }
