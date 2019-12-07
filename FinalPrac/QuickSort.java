@@ -26,47 +26,9 @@ class quickSorting {
     int i = 0;
     public void sorting(int a[], int begin, int end) {
 
-        if (begin < end) {
-            int pivot;
-            pivot = partition(a, begin, end);
-            sorting(a, begin, pivot - 1);
-            sorting(a, pivot + 1, end);
-        }
-
-
     }
 
     public int partition (int a[], int begin, int end){
-        int pivot = (begin + end) / 2;
-        int left = begin;
-        int right = end;
-        int temp;
-
-        while (left < right) {
-            while ((a[left] < a[pivot]) && (left < right)) {
-                left++;
-            }
-
-            while ((a[right] >= a[pivot]) && (right > left)) {
-                right--;
-            }
-
-            if (right > left) {
-                temp = a[left];
-                a[left] = a[right];
-                a[right] = temp;
-
-                if (left == pivot) {
-                    pivot = right;
-                }
-            }
-        }
-
-        // 원소 right와 피봇위치 변경
-        temp = a[pivot];
-        a[pivot] = a[right];
-        a[right] = temp;
-
-        return right;
+        return 1;
     }
 }
