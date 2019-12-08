@@ -27,13 +27,12 @@ class BubbleSorting {
         for (i = a.length - 1; i > 0; i--) {
             for (j = 0; j < i; j++) {
                 if (a[j + 1] < a[j]) {
-                    int temp;
-                    temp = a[j + 1];
+                    int temp = a[j + 1];
                     a[j + 1] = a[j];
                     a[j] = temp;
                 }
             }
-
         }
+
     }
 }

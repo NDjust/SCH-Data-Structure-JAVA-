@@ -25,36 +25,11 @@ public class HPSort {
 
 class HeapSort {
     void sorting(int arr[]) {
-        int n = arr.length;
 
-        for (int i = n / 2 - 1; i >= 0; i--) {
-            makeHeap(arr, i, n);
-        }
-
-        for (int i = n - 1; i >= 0; i--) {
-            int temp = arr[0];
-            arr[0] = arr[i];
-            arr[i] = temp;
-            makeHeap(arr, 0, i);
-        }
     }
 
     void makeHeap(int arr[], int i, int n) {
-        int j;
-        int temp = arr[i];
 
-        for (j = child(i); j < n; j=child(j)) {
-            if ((j < n - 1) && (arr[j] < arr[j + 1])) {
-                j++;
-            }
-
-            if (arr[i] >= arr[j]) {
-                break;
-            } else {
-                arr[parent(j)] = arr[j];
-            }
-        }
-        arr[parent(j)] = temp;
     }
 
     int parent(int i) {

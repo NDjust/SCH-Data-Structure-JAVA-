@@ -41,6 +41,7 @@ class Heap {
             i /= 2;
         }
         itemheap[i] = item;
+
     }
 
     public int getHeapSize() {
@@ -48,17 +49,13 @@ class Heap {
     }
 
     public int deleteHeap() {
-        int parent, child;
-        int item, temp;
+        int item = itemheap[1];
+        int temp = itemheap[HeapSize--];
 
-        item = itemheap[1];
-        temp = itemheap[HeapSize--];
-
-        parent = 1;
-        child = 2;
+        int parent = 1;
+        int child = 2;
 
         while (child <= HeapSize) {
-            // 왼쪽 오른쪽 결정
             if ((child < HeapSize) && (itemheap[child] < itemheap[child + 1])) {
                 child++;
             }
@@ -72,16 +69,14 @@ class Heap {
             child *= 2;
         }
         itemheap[parent] = temp;
+
         return item;
     }
 
     public void printHeap(){
         System.out.printf("\nHeap >>> ");
-
         for (int i = 1; i <= HeapSize; i++) {
             System.out.printf("[%d] ", itemheap[i]);
         }
     }
-
-
 }

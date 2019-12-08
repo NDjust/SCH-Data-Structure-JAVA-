@@ -39,13 +39,12 @@ class ArrayQueue {
     }
 
     public int deQueue() {
-        int tmp = itemArray[front];
-
+        int item = itemArray[front];
         for (int i = 1; i <= rear; i++) {
             itemArray[i - 1] = itemArray[i];
         }
         rear--;
-        return tmp;
+        return item;
     }
 }
 
@@ -61,16 +60,19 @@ class RadixSort {
             bucket.add(new ArrayQueue(10));
         }
 
-        for (int i = 1; i <= maxsize; i++) {
+        for (int i = 1; i <= maxsize; i++) { // bucket에 넣기.
             for (int j = 0; j < arr.length; j++) {
-                bucket.get((arr[j] / power) % 10).enQueue(arr[j]);
+                bucket.get((arr[j] / power)%10).enQueue(arr[j]);
+                // 123 / 10 = 3
+                // 123 / 10 % 10 = 2
+                // 123 / 100 % 10
+                // 위와 같이 power로 반복해서 나눠서 구해줘야 함.
             }
 
-            for (int k = 0; k < 10; k++) {
+            for (int k = 0; k < 10; k++) { // bucket에서 빼기, 고려할 사항이 많
                 int bucket_num = bucket.get(k).rear;
-
                 for (int n = 0; n <= bucket_num; n++) {
-                    arr[index] = bucket.get(k).deQueue();
+                    arr[index] = bucket.get(k).deQueue(); // bucket에 있는 queue의 값들을 순차적으로 뺌.
                     index++;
                 }
             }
@@ -81,7 +83,6 @@ class RadixSort {
 
     int getMaxLength(int[] data) {
         int maxsize = 0;
-
         for (int i = 0; i < data.length; i++) {
             int length = (int)Math.log10((double)data[i]) + 1;
             if (maxsize < length) {

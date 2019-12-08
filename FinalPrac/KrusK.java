@@ -69,20 +69,18 @@ public class KrusK {
 
 class Union_Find {
     public int getParent(int[] parent, int x) {
-        // 특정 점점의 부모 정점을 찾기 (루트가 나올 때까지 재귀호출 반복)
-        if (parent[x] == x) { // 자기 자신이 부모일 경우.
+        if (x == parent[x]) {
             return x;
+        } else {
+            return x = getParent(parent, parent[x]);
         }
-
-        return parent[x] = getParent(parent, parent[x]);
     }
 
     public void unionParent(int[] parent, int a, int b) {
         a = getParent(parent, a);
         b = getParent(parent, b);
 
-        // 두 부모 정점 중 작은 값을 큰 값의 부모노드로 저장.
-        if (a < b) {
+        if (a < b) { // 작은 간선 크기로 부모 노드 선정.
             parent[b] = a;
         } else {
             parent[a] = b;
@@ -93,7 +91,6 @@ class Union_Find {
         a = getParent(parent, a);
         b = getParent(parent, b);
 
-        // 두 정점의 부모 정점이 일치하면 연결
         if (a == b) {
             return 1;
         } else {
@@ -115,12 +112,13 @@ class Edge implements Comparable<Edge> {
 
     @Override
     public int compareTo(Edge C) {
-        if (this.distance < C.distance) {
-            return -1;
-        } else if (this.distance > C.distance) {
+        if (this.distance > C.distance) {
             return 1;
+        } else if (this.distance < C.distance) {
+            return -1;
+        } else {
+            return 0;
         }
-        return 0;
     }
 }
 
@@ -129,19 +127,18 @@ class Kruskal { // union find
         if (arr[x] == x) {
             return x;
         } else {
-            return arr[x] = getParent(arr, arr[x]);
+            return x = getParent(arr, arr[x]);
         }
-
     }
 
     public void unionParent(int[] arr, int a, int b) {
         a = getParent(arr, a);
         b = getParent(arr, b);
 
-        if (a < b) {
-            arr[b] = a;
-        } else {
+        if (a > b) {
             arr[a] = b;
+        } else {
+            arr[b] = a;
         }
 
     }

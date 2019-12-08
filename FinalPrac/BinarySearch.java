@@ -11,8 +11,8 @@ class BinarySearchTree {
     private Node root = new Node();
 
     public Node insertKey(Node root, char x) {
-        Node p = root;
         Node newNode = new Node();
+        Node p = root;
         newNode.data = x;
         newNode.left = null;
         newNode.right = null;
