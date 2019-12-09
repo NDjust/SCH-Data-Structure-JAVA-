@@ -29,7 +29,20 @@ class HeapSort {
     }
 
     void makeHeap(int arr[], int i, int n) {
+        int j;
+        int temp = arr[i];
 
+        for (j = child(i); j < n; j = child(j)) {
+            if ((j < n - 1) && arr[j] < arr[j + 1]) {
+                j++;
+            }
+            if (temp > arr[j]) {
+                break;
+            } else {
+                arr[parent(j)] = arr[j];
+            }
+        }
+        arr[parent(j)] = temp;
     }
 
     int parent(int i) {

@@ -22,46 +22,47 @@ class MergeSort {
     private int sorted[] = new int[30];
 
     public void merge(int a[], int m, int middle, int n) {
-        int size = a.length;
         int i, j, k, t;
+        int size = a.length;
         i = m;
         j = middle + 1;
         k = m;
 
-        while (i <= middle && j <= n); {
+        while (i <= middle && j <= n) {
             if (a[i] <= a[j]) {
                 sorted[k] = a[i++];
             } else {
                 sorted[k] = a[j++];
             }
             k++;
-            System.out.println(k);
         }
 
         if (i > middle) { // 왼쪽 정렬 완료.
             for (t = j; t <= n; t++, k++) {
                 sorted[k] = a[t];
             }
-        } else { // 오른쪽 부분 정렬 완료.
-            for (t = i; t <= middle; t++, k++) {
+        } else {
+            for (t = i; t <= n; t++, k++) {
                 sorted[k] = a[t];
             }
         }
 
-        for (t = m; t <= n; t++) {
+        for (t = m; t <= n; t++) { // 시작구간 부터 마지막 구간까지 정렬 복사.
             a[t] = sorted[t];
         }
         System.out.printf("\n 병합 정렬 >> ");
         for (t = 0; t < size; t++) {
-            System.out.printf(" %3d", a[t]);
+            System.out.printf(" %d", a[t]);
         }
+
+
 
     }
 
     public void mergeSort(int a[], int m, int n) {
         int middle;
         if (m < n) {
-            middle = (m + n) / 2;
+            middle = (n + m) / 2;
             mergeSort(a, m, middle);
             mergeSort(a, middle + 1, n);
             merge(a, m, middle, n);

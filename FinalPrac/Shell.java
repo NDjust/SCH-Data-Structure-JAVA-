@@ -23,11 +23,30 @@ public class Shell {
 
 class ShellSort {
     public void IntervalSort(int a[], int begin, int end, int interval) {
+        int i, j, temp;
+
+        for (i = begin; i <= end; i = i + interval) {
+            temp = a[i];
+            for (j = i - interval; j >= begin && temp < a[j]; j -= interval) {
+                a[interval + j] = a[j];
+            }
+            a[j + interval] = temp;
+        }
 
 
     }
 
     public void ShellSorting(int a[], int size) {
+        int interval = size / 2;
+
+        while (interval >= 1) {
+            for (int i = 0; i < interval; i++) {
+                IntervalSort(a, i, size - 1, interval);
+            }
+            interval /= 2;
+
+
+        }
 
     }
 }

@@ -21,10 +21,25 @@ public class SelectSort {
 
 class SelectionSort {
     public void SelectionSorting(int a[]) {
+        int i, j;
+        int min = 0;
+
+        for (i = 0; i < a.length - 1; i++) {
+            min = i;
+            for (j = 1 + i; j < a.length; j++) {
+                if (a[min] > a[j]) {
+                    min = j;
+                }
+            }
+            swap(a, min, i);
+        }
 
     }
 
     public void swap(int arr[], int a, int b) {
-
+        int temp;
+        temp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = temp;
     }
 }

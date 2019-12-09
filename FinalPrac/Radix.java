@@ -40,6 +40,7 @@ class ArrayQueue {
 
     public int deQueue() {
         int item = itemArray[front];
+
         for (int i = 1; i <= rear; i++) {
             itemArray[i - 1] = itemArray[i];
         }
@@ -50,9 +51,8 @@ class ArrayQueue {
 
 class RadixSort {
     void Sorting(int[] arr) {
-        int maxsize = getMaxLength(arr);
         ArrayList<ArrayQueue> bucket = new ArrayList();
-
+        int maxsize = getMaxLength(arr);
         int power = 1;
         int index = 0;
 
@@ -83,9 +83,10 @@ class RadixSort {
 
     int getMaxLength(int[] data) {
         int maxsize = 0;
+
         for (int i = 0; i < data.length; i++) {
             int length = (int)Math.log10((double)data[i]) + 1;
-            if (maxsize < length) {
+            if (length > maxsize)  {
                 maxsize = length;
             }
         }

@@ -37,7 +37,7 @@ class Heap {
         int i = ++HeapSize;
 
         while ((i != 1) && (item > itemheap[i / 2])) {
-            itemheap[i] = itemheap[i / 2];
+            itemheap[i] =  itemheap[i / 2];
             i /= 2;
         }
         itemheap[i] = item;
@@ -60,16 +60,15 @@ class Heap {
                 child++;
             }
 
-            if (temp >= itemheap[child]) {
+            if (temp > itemheap[child]) {
                 break;
             }
-
             itemheap[parent] = itemheap[child];
             parent = child;
             child *= 2;
         }
-        itemheap[parent] = temp;
 
+        itemheap[parent] = temp;
         return item;
     }
 
