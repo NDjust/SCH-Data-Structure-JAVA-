@@ -43,8 +43,8 @@ class TreeSort {
     public void Sorting(int arr[]) {
         for (int i = 0; i < arr.length; i++) {
             insertBST(node, arr[i]);
-            inOrder(node, arr);
         }
+        inOrder(node, arr);
     }
 
     public Node insertBST(Node node, int value) {
