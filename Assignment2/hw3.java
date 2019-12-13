@@ -55,7 +55,7 @@ class SingleSourceShortestPath {
             // 선택한 정점을 통해서 갈 수 있는 (인접한) 정점의 가중치를 갱신
             for (int i = 0; i < n; i++) {
                 // 사용하지 않은 정점, 인접한 정점, 가중치가 지금보다 더 작으면 갱신.
-                if (!T[i] && W[u][i] != Integer.MAX_VALUE) {
+                if (!T[i] && W[u][i] != Integer.MAX_VALUE && W[u][i] != 0) {
                     if (d[i] > d[u] + W[u][i]) { // 최단 거리 업데이트.
                         d[i] = d[u] + W[u][i];
                         p[i] = u;

@@ -53,7 +53,6 @@ class Coloring {
             }
             j++;
         }
-
         return true;
     }
 }
