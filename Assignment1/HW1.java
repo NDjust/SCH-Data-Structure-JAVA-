@@ -67,11 +67,11 @@ class Polynomial {
         if (head == null) {
             head = node;
         } else {
-            ListNode temp = head;
-            while (temp.link != null) {
-                temp = temp.link;
+            ListNode current = head;
+            while (current.link != null) {
+                current = current.link;
             }
-            temp.link = node;
+            current.link = node;
 
         }
     }
@@ -82,11 +82,8 @@ class Polynomial {
         } else {
             ListNode current = head;
             while (current.link != null) {
-                System.out.printf(current.coef + "X^" + current.expo);
+                System.out.printf(current.coef + "X^" + current.expo +  " + ");
                 current = current.link;
-                if (current != null) {
-                    System.out.printf(" + ");
-                }
             }
             System.out.print(current.coef + "X^" + current.expo);
             System.out.println();
